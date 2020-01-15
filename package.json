@@ -1,0 +1,23 @@
+{
+  "name": "graphql-start",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neohed/graphql-start.git"
+  },
+  "keywords": [],
+  "author": "neohed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neohed/graphql-start/issues"
+  },
+  "homepage": "https://github.com/neohed/graphql-start#readme",
+  "dependencies": {
+    "graphql": "^14.5.8"
+  }
+}
