@@ -16,7 +16,7 @@ app.use(loggingMiddleware);
 
 // graphqlHTTP config: https://graphql.org/graphql-js/express-graphql/
 app.use('/graphql', graphqlHTTP({
-    schema: schema,
+    schema,
     rootValue: root,
     graphiql: true,
 }));
