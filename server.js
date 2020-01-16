@@ -1,17 +1,32 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const { buildSchema } = require('graphql');
+const RandomDie = require('./RandomDie');
 
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
-  type Query {
-    hello: String
-    quoteOfTheDay: String
-    random: Float!
-    rollThreeDice: [Int]
-    rollDice(numDice: Int!, numSides: Int): [Int]
-  }
+    type RandomDie {
+        numSides: Int!
+        rollOnce: Int!
+        roll(numRolls: Int!): [Int]
+    }
+    
+    type Mutation {
+        setMessage(message: String): String
+    }
+
+    type Query {
+        hello: String
+        quoteOfTheDay: String
+        random: Float!
+        rollThreeDice: [Int]
+        rollDice(numDice: Int!, numSides: Int): [Int]
+        getDie(numSides: Int): RandomDie
+        getMessage: String
+    }
 `);
+
+const fakeDatabase = {};
 
 // The root provides a resolver function for each API endpoint
 const root = {
@@ -33,6 +48,16 @@ const root = {
             output.push(1 + Math.floor(Math.random() * (numSides || 6)));
         }
         return output;
+    },
+    getDie: ({numSides}) => {
+        return new RandomDie(numSides || 6);
+    },
+    setMessage: ({message}) => {
+        fakeDatabase.message = message;
+        return message;
+    },
+    getMessage: () => {
+        return fakeDatabase.message;
     },
 };
 

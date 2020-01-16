@@ -76,5 +76,16 @@ fetch('/graphql', {
   .then(data => console.log('data returned:', data));
 ```
 
+### example query
+
+```graphql
+{
+  quoteOfTheDay,
+  random,
+  rollThreeDice,
+  rollDice(numDice: 7, numSides: 6)
+}
+```
+
 ## ToDo
 * Understand "context".  It can be an object or function.
