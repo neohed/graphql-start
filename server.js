@@ -1,43 +1,14 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
+const { readFileSync } = require('fs');
 const { buildSchema } = require('graphql');
-const RandomDie = require('./RandomDie');
-const Message = require('./Message');
 
 // Construct a schema, using GraphQL schema language
-const schema = buildSchema(`
-    input MessageInput {
-        content: String
-        author: String
-    }
-    
-    type Message {
-        id: ID!
-        content: String
-        author: String
-    }
+const schemaDefs = readFileSync('./schema.graphql', 'UTF-8');
+const schema = buildSchema(schemaDefs);
 
-    type RandomDie {
-        numSides: Int!
-        rollOnce: Int!
-        roll(numRolls: Int!): [Int]
-    }
-    
-    type Mutation {
-        createMessage(input: MessageInput): Message
-        updateMessage(id: ID!, input: MessageInput): Message
-    }
-
-    type Query {
-        hello: String
-        quoteOfTheDay: String
-        random: Float!
-        rollThreeDice: [Int]
-        rollDice(numDice: Int!, numSides: Int): [Int]
-        getDie(numSides: Int): RandomDie
-        getMessage(id: ID!): Message
-    }
-`);
+const RandomDie = require('./RandomDie');
+const Message = require('./Message');
 
 const fakeDatabase = {};
 

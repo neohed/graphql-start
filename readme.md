@@ -112,7 +112,7 @@ mutation {
 
 ```graphql
 query {
-  getMessage(id: "2f05c0f57b188e447a83") {
+  getMessage(id: "b180053fee6a5cd1ff4c") {
     id
     content
     author
