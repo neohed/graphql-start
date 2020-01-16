@@ -87,5 +87,69 @@ fetch('/graphql', {
 }
 ```
 
+### mutation query
+
+```graphql
+mutation {
+  setMessage(message: "Farewell and adieu...")
+}
+```
+
+### mutation with input type query
+
+```graphql
+mutation {
+  createMessage(input: {
+    author: "andy",
+    content: "hope is a good thing",
+  }) {
+    id
+  }
+}
+```
+
+### The request - using the ID returned by createMessage
+
+```graphql
+query {
+  getMessage(id: "2f05c0f57b188e447a83") {
+    id
+    content
+    author
+  }
+}
+```
+
+### Calling that with JS
+
+```javascript
+var author = 'andy';
+var content = 'hope is a good thing';
+var query = `mutation CreateMessage($input: MessageInput) {
+  createMessage(input: $input) {
+    id
+  }
+}`;
+
+fetch('/graphql', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  },
+  body: JSON.stringify({
+    query,
+    variables: {
+      input: {
+        author,
+        content,
+      }
+    }
+  })
+})
+  .then(r => r.json())
+  .then(data => console.log('data returned:', data));
+```
+
 ## ToDo
 * Understand "context".  It can be an object or function.

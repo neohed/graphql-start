@@ -2,9 +2,21 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const { buildSchema } = require('graphql');
 const RandomDie = require('./RandomDie');
+const Message = require('./Message');
 
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
+    input MessageInput {
+        content: String
+        author: String
+    }
+    
+    type Message {
+        id: ID!
+        content: String
+        author: String
+    }
+
     type RandomDie {
         numSides: Int!
         rollOnce: Int!
@@ -12,7 +24,8 @@ const schema = buildSchema(`
     }
     
     type Mutation {
-        setMessage(message: String): String
+        createMessage(input: MessageInput): Message
+        updateMessage(id: ID!, input: MessageInput): Message
     }
 
     type Query {
@@ -22,7 +35,7 @@ const schema = buildSchema(`
         rollThreeDice: [Int]
         rollDice(numDice: Int!, numSides: Int): [Int]
         getDie(numSides: Int): RandomDie
-        getMessage: String
+        getMessage(id: ID!): Message
     }
 `);
 
@@ -52,12 +65,26 @@ const root = {
     getDie: ({numSides}) => {
         return new RandomDie(numSides || 6);
     },
-    setMessage: ({message}) => {
-        fakeDatabase.message = message;
-        return message;
+    createMessage: ({input}) => {
+        // Create a random id for our "database".
+        const id = require('crypto').randomBytes(10).toString('hex');
+
+        fakeDatabase[id] = input;
+        return new Message(id, input);
     },
-    getMessage: () => {
-        return fakeDatabase.message;
+    updateMessage: ({id, input}) => {
+        if (!fakeDatabase[id]) {
+            throw new Error('no message exists with id ' + id);
+        }
+        // This replaces all old data, but some apps might want partial update.
+        fakeDatabase[id] = input;
+        return new Message(id, input);
+    },
+    getMessage: ({id}) => {
+        if (!fakeDatabase[id]) {
+            throw new Error('no message exists with id ' + id);
+        }
+        return new Message(id, fakeDatabase[id]);
     },
 };
 
