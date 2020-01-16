@@ -168,7 +168,15 @@ fetch('/graphql', {
 * Pagination
 > Typically fields that could return long lists accept arguments "first" and "after" to allow for specifying a specific region of a list, where "after" is a unique identifier of each of the values in the list.
 
+# Appendix
 
+## Scalar Types
+
+* Int
+* Float
+* String
+* Boolean
+* ID
 
 ## ToDo
 * Understand "context".  It can be an object or function.
