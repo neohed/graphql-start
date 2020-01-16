@@ -151,5 +151,24 @@ fetch('/graphql', {
   .then(data => console.log('data returned:', data));
 ```
 
+### Constructing Types - GraphQLSchema 
+
+> When we use this method of creating the API, the root level resolvers are implemented on the Query and Mutation types rather than on a root object.
+
+* [constructing-types](https://graphql.org/graphql-js/constructing-types/)
+* [schema-stitching](https://www.advancedgraphql.com/content/schema-stitching)
+
+## Advanced GraphQL
+
+[advancedgraphql.com](https://www.advancedgraphql.com/content/schema-transformation)
+
+## Best Practics
+[best-practices](https://graphql.org/learn/best-practices/)
+
+* Pagination
+> Typically fields that could return long lists accept arguments "first" and "after" to allow for specifying a specific region of a list, where "after" is a unique identifier of each of the values in the list.
+
+
+
 ## ToDo
 * Understand "context".  It can be an object or function.

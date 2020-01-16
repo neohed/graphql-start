@@ -13,6 +13,8 @@ const root = require('./resolvers');
 
 const app = express();
 app.use(loggingMiddleware);
+
+// graphqlHTTP config: https://graphql.org/graphql-js/express-graphql/
 app.use('/graphql', graphqlHTTP({
     schema: schema,
     rootValue: root,
