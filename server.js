@@ -2,6 +2,7 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const { readFileSync } = require('fs');
 const { buildSchema } = require('graphql');
+const loggingMiddleware = require('./loggingMiddleware');
 
 // Construct a schema, using GraphQL schema language
 const schemaDefs = readFileSync('./schema.graphql', 'UTF-8');
@@ -11,7 +12,7 @@ const schema = buildSchema(schemaDefs);
 const root = require('./resolvers');
 
 const app = express();
-
+app.use(loggingMiddleware);
 app.use('/graphql', graphqlHTTP({
     schema: schema,
     rootValue: root,

@@ -7,33 +7,40 @@ module.exports = {
     hello: () => {
         return 'Hello world!';
     },
-        quoteOfTheDay: () => {
+
+    quoteOfTheDay: () => {
         return Math.random() < 0.5 ? 'Take it easy' : 'Salvation lies within';
     },
-        random: () => {
+
+    random: () => {
         return Math.random();
     },
-        rollThreeDice: () => {
+
+    rollThreeDice: () => {
         return [1, 2, 3].map(_ => 1 + Math.floor(Math.random() * 6));
     },
-        rollDice: ({numDice, numSides}) => {
+
+    rollDice: ({numDice, numSides}) => {
         const output = [];
         for (let i = 0; i < numDice; i++) {
             output.push(1 + Math.floor(Math.random() * (numSides || 6)));
         }
         return output;
     },
-        getDie: ({numSides}) => {
+
+    getDie: ({numSides}) => {
         return new RandomDie(numSides || 6);
     },
-        createMessage: ({input}) => {
+
+    createMessage: ({input}) => {
         // Create a random id for our "database".
         const id = require('crypto').randomBytes(10).toString('hex');
 
         fakeDatabase[id] = input;
         return new Message(id, input);
     },
-        updateMessage: ({id, input}) => {
+
+    updateMessage: ({id, input}) => {
         if (!fakeDatabase[id]) {
             throw new Error('no message exists with id ' + id);
         }
@@ -41,10 +48,15 @@ module.exports = {
         fakeDatabase[id] = input;
         return new Message(id, input);
     },
-        getMessage: ({id}) => {
+
+    getMessage: ({id}) => {
         if (!fakeDatabase[id]) {
             throw new Error('no message exists with id ' + id);
         }
         return new Message(id, fakeDatabase[id]);
     },
+
+    ip: function (args, request) {
+        return request.ip;
+    }
 };
