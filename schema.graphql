@@ -5,14 +5,14 @@ input MessageInput {
 
 type Message {
     id: ID!
-        content: String
+    content: String
     author: String
 }
 
 type RandomDie {
     numSides: Int!
-        rollOnce: Int!
-        roll(numRolls: Int!): [Int]
+    rollOnce: Int!
+    roll(numRolls: Int!): [Int]
 }
 
 type Mutation {
@@ -24,8 +24,9 @@ type Query {
     hello: String
     quoteOfTheDay: String
     random: Float!
-        rollThreeDice: [Int]
+    rollThreeDice: [Int]
     rollDice(numDice: Int!, numSides: Int): [Int]
     getDie(numSides: Int): RandomDie
     getMessage(id: ID!): Message
+    ip: String
 }

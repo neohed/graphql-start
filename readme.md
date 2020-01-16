@@ -112,7 +112,7 @@ mutation {
 
 ```graphql
 query {
-  getMessage(id: "b180053fee6a5cd1ff4c") {
+  getMessage(id: "f933bb95b94e1b524ecd") {
     id
     content
     author
@@ -123,9 +123,9 @@ query {
 ### Calling that with JS
 
 ```javascript
-var author = 'andy';
-var content = 'hope is a good thing';
-var query = `mutation CreateMessage($input: MessageInput) {
+const author = 'andy';
+const content = 'hope is a good thing';
+const query = `mutation CreateMessage($input: MessageInput) {
   createMessage(input: $input) {
     id
   }
